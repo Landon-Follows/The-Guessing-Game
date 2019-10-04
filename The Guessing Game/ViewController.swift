@@ -12,8 +12,8 @@ import AVFoundation
 class ViewController: UIViewController {
 
     // MARK: Properties
-    let targetnumber = Int.random(in: 1...100)
-    
+    let targetNumber = Int.random(in: 1...100)
+    @IBOutlet weak var submittedGuess: UITextField!
     // MARK: Initializers
     
     
@@ -38,7 +38,8 @@ class ViewController: UIViewController {
         // Speak the message
         synthesizer.speak(utterance)
         
-        
+        // Report the target number to the console for testing purposes
+        print("For Testing purposes, the random number is \(targetNumber)")
     }
 
 
