@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         //Obtain the guess vlaue from the Text field
         guard let guessText = submittedGuess.text else {
             
-            speak(message: "Bro, try entering a value?")
+            speak(message: "Hey, Enter a Proper Value")
             return
             
         }
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         // Try to convert the String into an Integer Data Type
         guard let guessNumber = Int(guessText) else {
             
-            speak(message: "Hey, how about entering a Number")
+            speak(message: "Hey, Enter a Whole Number!")
             return
             
         }
@@ -61,12 +61,18 @@ class ViewController: UIViewController {
         if guessNumber < targetNumber {
             print("guess higher next time")
             speak(message: "guess higher next time")
+            
+            
         } else if guessNumber > targetNumber {
             print("guess lower next time")
             speak(message: "guess lower next time")
+            
+            
         } else {
             print("You are correct")
             speak(message: "You are correct")
+            
+            
         }
         
     }
