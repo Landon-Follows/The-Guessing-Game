@@ -10,61 +10,81 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
-    // MARK: Properties
+    
+    //MARK: Properties
     let targetNumber = Int.random(in: 1...100)
     @IBOutlet weak var submittedGuess: UITextField!
-    // MARK: Initializers
+    
+    //MARK: Initializers
     
     
-    // MARK: Methods (functions) - behaviours
+    //MARK: Methods (fuctions) - Behaviors
     
-    // Runs as soon as the view becomes avaliable to the user
+    // Runs as soon as the view becomes visible for the user
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // Make an object named 'synthesizer', which is an instance of the
-        // class 'AVSpeechSynthesizer'
-        let synthesizer = AVSpeechSynthesizer()
-
-        // Make a string that contains what we want to the computer to say
-        let message = "I'm thinking of a number between 1 and 100. Guess what it is."
+        speak(message: "I'm thinking of a number between 1 and 100, guess what it is")
         
-        // Make an object named 'utterance', which is an instance of the class
-        //AVSpeechUtterance
-        let utterance = AVSpeechUtterance(string: message)
+        // Report the target Number to the Console for testing
+        print("For Testing Purpose, the random Number is \(targetNumber)")
         
-        // Speak the message
-        synthesizer.speak(utterance)
         
-        // Report the target number to the console for testing purposes
-        print("For Testing purposes, the random number is \(targetNumber)")
     }
-
-
     
-    // Will be used to check  guess
+    // will be used to check Guess
     @IBAction func checkGuess(_ sender: Any) {
         
-        // Obtain the guess vlaue from the text field
-        let guessText = submittedGuess.text!
-        let guessNumber = Int(guessText)!
+        //Obtain the guess vlaue from the Text field
+        guard let guessText = submittedGuess.text else {
+            
+            speak(message: "Bro, try entering a value?")
+            return
+            
+        }
         
-        // For testing purposes, what was the guess?
-        print("For test purposes, the guess made was \(guessNumber)")
+        // Try to convert the String into an Integer Data Type
+        guard let guessNumber = Int(guessText) else {
+            
+            speak(message: "Hey, how about entering a Number")
+            return
+            
+        }
         
-        // Give the appropriate feedback to the user
-        if guessNumber > targetNumber {
-            print("Guess lower")
-        } else if guessNumber < targetNumber {
-          print("Guess Higher")
+        // For testing purpose, what was the guessNumber
+        print("For testing purpose, the guessed Number is \(guessNumber)")
+        
+        
+        
+        // Give Feedback to the user
+        if guessNumber < targetNumber {
+            print("guess higher next time")
+            speak(message: "guess higher next time")
+        } else if guessNumber > targetNumber {
+            print("guess lower next time")
+            speak(message: "guess lower next time")
         } else {
-            print("You are Amazingly Correct!")
+            print("You are correct")
+            speak(message: "You are correct")
         }
         
     }
     
+    // A Function that will speak whatever message is provided
+    func speak(message: String)  {
+        
+        // Make an object called synthesiser, which is an instance of the
+        // class 'AVspeechSythesizer'\
+        let Synthesizer = AVSpeechSynthesizer()
+        
+        // Make an Object named 'utterance', which is an instance of the
+        // class 'AVspeechUtterance'
+        let utterance = AVSpeechUtterance(string: message)
+        
+        // Speek the message
+        Synthesizer.speak(utterance)
+    }
+    
     
 }
-
